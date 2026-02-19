@@ -1,0 +1,1377 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <title>BRANDÃO • BARBER</title>
+    
+    <!-- FONTES -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Cormorant+Garamond:wght@300;400;500;600;700&family=Montserrat:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        
+        body {
+            background-color: #0A0A0A;
+            color: #E5E5E5;
+            font-family: 'Cormorant Garamond', serif;
+            line-height: 1.8;
+            overflow-x: hidden;
+            position: relative;
+        }
+        
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at 30% 50%, rgba(192,192,192,0.03) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        .container { max-width: 1400px; margin: 0 auto; padding: 0 20px; position: relative; }
+        
+        /* Cores prateadas */
+        .section-title span, .since, .nav-link:hover, .price-value, 
+        .cargo, .stat-number, .resumo-box h4, .footer-info i {
+            color: #C0C0C0 !important;
+        }
+        
+        .btn-card, .btn-submit, .status.ativo {
+            background: #C0C0C0 !important;
+            color: #0A0A0A !important;
+            border-color: #C0C0C0 !important;
+        }
+        
+        .btn-card:hover {
+            background: transparent !important;
+            color: #C0C0C0 !important;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(192,192,192,0.3);
+        }
+        
+        .price-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            border-color: #C0C0C0 !important;
+            box-shadow: 0 20px 40px rgba(192,192,192,0.3) !important;
+            transition: all 0.4s ease;
+        }
+        
+        /* HEADER */
+        header { padding: 20px 0 30px; text-align: center; }
+        
+        .logo-img {
+            width: 220px;
+            height: 220px;
+            object-fit: contain;
+            object-position: center;
+            border-radius: 50%;
+            box-shadow: 0 0 25px rgba(192,192,192,0.35);
+            display: block;
+            transition: transform 0.5s ease, box-shadow 0.5s ease;
+            background-color: #0A0A0A;
+            border: 1px solid rgba(192,192,192,0.2);
+        }
+        
+        .logo-img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 40px rgba(192,192,192,0.6);
+        }
+        
+        .since {
+            font-size: 14px;
+            letter-spacing: 8px;
+            margin-top: 20px;
+            display: inline-block;
+            padding: 8px 30px;
+            border-top: 1px solid rgba(192,192,192,0.3);
+            border-bottom: 1px solid rgba(192,192,192,0.3);
+            animation: fadeInPulse 2s infinite;
+        }
+        
+        @keyframes fadeInPulse {
+            0%, 100% { opacity: 0.8; }
+            50% { opacity: 1; text-shadow: 0 0 10px rgba(192,192,192,0.5); }
+        }
+        
+        /* NAVEGAÇÃO */
+        nav { margin: 30px 0; overflow-x: auto; white-space: nowrap; -webkit-overflow-scrolling: touch; }
+        nav::-webkit-scrollbar { display: none; }
+        
+        nav ul { 
+            display: inline-flex; 
+            gap: 30px; 
+            list-style: none; 
+            padding: 10px 20px;
+            background: rgba(0,0,0,0.5);
+            border-radius: 40px;
+            border: 1px solid rgba(192,192,192,0.2);
+            backdrop-filter: blur(10px);
+        }
+        
+        .nav-link {
+            color: #FFF;
+            text-decoration: none;
+            font-size: 14px;
+            letter-spacing: 3px;
+            padding: 8px 15px;
+            position: relative;
+            transition: all 0.3s;
+        }
+        
+        .nav-link::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 2px;
+            background: #C0C0C0;
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover {
+            color: #C0C0C0;
+        }
+        
+        .nav-link:hover::before {
+            width: 80%;
+        }
+        
+        /* SEÇÕES */
+        .section-header { text-align: center; margin: 60px 0 40px; }
+        .section-title { 
+            font-size: clamp(35px, 8vw, 60px); 
+            color: #FFF; 
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title span { 
+            font-size: 45px; 
+            margin: 0 5px;
+            animation: rotateStar 3s infinite;
+            display: inline-block;
+        }
+        
+        @keyframes rotateStar {
+            0% { transform: rotate(0deg); }
+            50% { transform: rotate(180deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .section-subtitle { 
+            font-size: 12px; 
+            color: #B0B0B0; 
+            letter-spacing: 5px; 
+            text-transform: uppercase;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .section-subtitle::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #C0C0C0, transparent);
+            animation: slideLine 2s infinite;
+        }
+        
+        @keyframes slideLine {
+            0% { width: 30px; opacity: 0.3; }
+            50% { width: 80px; opacity: 1; }
+            100% { width: 30px; opacity: 0.3; }
+        }
+        
+        /* CARDS */
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 25px;
+        }
+        
+        @media (min-width: 768px) {
+            .pricing-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        
+        @media (min-width: 1024px) {
+            .pricing-grid { grid-template-columns: repeat(3, 1fr); }
+        }
+        
+        .price-card {
+            background: #111;
+            border: 1px solid rgba(192,192,192,0.1);
+            padding: 35px 25px;
+            border-radius: 20px;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .price-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(192,192,192,0.1) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.6s;
+            transform: rotate(45deg);
+        }
+        
+        .price-card:hover::before {
+            opacity: 1;
+        }
+        
+        .price-card h3 { 
+            font-size: 28px; 
+            color: #FFF; 
+            margin-bottom: 15px; 
+            position: relative;
+            display: inline-block;
+        }
+        
+        .price-card h3::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background: #C0C0C0;
+            transition: width 0.3s;
+        }
+        
+        .price-card:hover h3::after {
+            width: 100%;
+        }
+        
+        .price-value { 
+            font-size: 50px; 
+            font-weight: 900; 
+            margin: 20px 0;
+            text-shadow: 0 0 15px rgba(192,192,192,0.3);
+        }
+        
+        .price-value small { font-size: 18px; color: #B0B0B0; }
+        
+        .btn-card {
+            background: transparent;
+            border: 2px solid #C0C0C0;
+            color: #FFF;
+            padding: 15px;
+            width: 100%;
+            font-size: 14px;
+            letter-spacing: 3px;
+            border-radius: 40px;
+            cursor: pointer;
+            transition: all 0.4s;
+            position: relative;
+            overflow: hidden;
+            margin-top: 10px;
+        }
+        
+        .btn-card::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(192,192,192,0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+        
+        .btn-card:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+        
+        /* PROFISSIONAIS */
+        .profissionais-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .profissional-card {
+            background: #111;
+            border: 1px solid rgba(192,192,192,0.1);
+            padding: 50px 30px;
+            text-align: center;
+            border-radius: 30px;
+            transition: all 0.5s;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .profissional-card::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(192,192,192,0.15) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.8s;
+            transform: rotate(10deg);
+        }
+        
+        .profissional-card:hover::after {
+            opacity: 1;
+        }
+        
+        .profissional-card:hover {
+            transform: scale(1.03);
+            border-color: rgba(192,192,192,0.5);
+            box-shadow: 0 30px 50px rgba(0,0,0,0.8), 0 0 0 1px rgba(192,192,192,0.2);
+        }
+        
+        .profissional-nome { 
+            font-size: 48px; 
+            color: #FFF; 
+            letter-spacing: 4px; 
+            margin-bottom: 15px;
+            animation: glowText 3s infinite;
+        }
+        
+        @keyframes glowText {
+            0%, 100% { text-shadow: 0 0 10px rgba(192,192,192,0.3); }
+            50% { text-shadow: 0 0 25px rgba(192,192,192,0.7); }
+        }
+        
+        .cargo { 
+            font-size: 16px; 
+            letter-spacing: 5px; 
+            margin-bottom: 25px; 
+            padding-bottom: 20px; 
+            border-bottom: 1px solid rgba(192,192,192,0.2);
+            display: inline-block;
+        }
+        
+        /* HORÁRIOS FIXOS */
+        .horarios-card {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+            background: rgba(192,192,192,0.05);
+            border: 1px solid rgba(192,192,192,0.2);
+            padding: 35px 25px;
+            border-radius: 30px;
+            margin-top: 50px;
+            backdrop-filter: blur(10px);
+        }
+        
+        @media (min-width: 768px) {
+            .horarios-card { grid-template-columns: repeat(3, 1fr); }
+        }
+        
+        .horario-item { text-align: center; position: relative; }
+        .dia { font-size: 18px; font-weight: 600; color: #C0C0C0; margin-bottom: 10px; }
+        .hora { font-size: 24px; margin-bottom: 10px; }
+        .status {
+            display: inline-block;
+            padding: 6px 20px;
+            border: 1px solid #C0C0C0;
+            font-size: 11px;
+            border-radius: 30px;
+            transition: all 0.3s;
+        }
+        .status.ativo { 
+            background: #C0C0C0; 
+            color: #0A0A0A; 
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 10px rgba(192,192,192,0.5); }
+            50% { box-shadow: 0 0 25px rgba(192,192,192,0.9); }
+        }
+        
+        /* FORMULÁRIO */
+        .form-container {
+            background: #111;
+            border: 1px solid rgba(192,192,192,0.2);
+            padding: 35px 25px;
+            border-radius: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .form-container::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, transparent, rgba(192,192,192,0.2), transparent);
+            border-radius: 32px;
+            z-index: -1;
+            animation: borderGlow 3s infinite;
+        }
+        
+        @keyframes borderGlow {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+        
+        .form-grid { display: grid; gap: 20px; }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 12px;
+            letter-spacing: 2px;
+            color: #B0B0B0;
+        }
+        
+        label i { color: #C0C0C0; margin-right: 8px; }
+        
+        input, select, textarea {
+            width: 100%;
+            padding: 15px;
+            background: rgba(0,0,0,0.7);
+            border: 1px solid rgba(192,192,192,0.2);
+            color: #FFF;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+        
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: #C0C0C0;
+            box-shadow: 0 0 20px rgba(192,192,192,0.3);
+            transform: scale(1.02);
+        }
+        
+        /* HORÁRIOS DISPONÍVEIS */
+        .horarios-disponiveis {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+        }
+        
+        @media (min-width: 480px) {
+            .horarios-disponiveis { grid-template-columns: repeat(3, 1fr); }
+        }
+        
+        @media (min-width: 768px) {
+            .horarios-disponiveis { grid-template-columns: repeat(5, 1fr); }
+        }
+        
+        .horario-btn {
+            padding: 12px 5px;
+            border: none;
+            color: #FFF;
+            cursor: pointer;
+            font-size: 15px;
+            font-weight: 600;
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+        
+        .horario-btn.disponivel { 
+            background: #2A5C2A; 
+            animation: glowGreen 2s infinite;
+        }
+        
+        @keyframes glowGreen {
+            0%, 100% { box-shadow: 0 0 5px rgba(76, 175, 80, 0.3); }
+            50% { box-shadow: 0 0 15px rgba(76, 175, 80, 0.7); }
+        }
+        
+        .horario-btn.disponivel:hover {
+            background: #4CAF50;
+            transform: scale(1.1);
+            box-shadow: 0 0 25px rgba(76, 175, 80, 0.8);
+        }
+        
+        .horario-btn.indisponivel { 
+            background: #8B3A3A; 
+            cursor: not-allowed; 
+            opacity: 0.7; 
+        }
+        
+        .horario-btn.selecionado { 
+            background: #C0C0C0 !important; 
+            color: #0A0A0A; 
+            border: 2px solid #FFF; 
+            transform: scale(1.1);
+            box-shadow: 0 0 30px rgba(192,192,192,0.8);
+        }
+        
+        .legenda-horarios {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 10px;
+            font-size: 11px;
+        }
+        
+        /* RESUMO */
+        .resumo-box {
+            margin: 30px 0;
+            padding: 25px;
+            background: rgba(192,192,192,0.05);
+            border: 1px solid rgba(192,192,192,0.2);
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .resumo-box h4 { 
+            font-size: 18px; 
+            letter-spacing: 3px; 
+            margin-bottom: 15px; 
+            animation: slideIn 1s;
+        }
+        
+        @keyframes slideIn {
+            from { transform: translateX(-20px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        
+        .resumo-linha { 
+            display: flex; 
+            justify-content: space-between; 
+            padding: 10px 0; 
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            transition: all 0.3s;
+        }
+        
+        .resumo-linha:hover {
+            background: rgba(192,192,192,0.1);
+            padding-left: 10px;
+            padding-right: 10px;
+            border-radius: 5px;
+        }
+        
+        .resumo-label { color: #B0B0B0; }
+        .resumo-valor { color: #FFF; font-weight: 600; }
+        
+        .btn-submit {
+            background: #C0C0C0;
+            border: 2px solid #C0C0C0;
+            color: #0A0A0A;
+            padding: 18px;
+            width: 100%;
+            font-size: 16px;
+            letter-spacing: 4px;
+            border-radius: 40px;
+            cursor: pointer;
+            transition: all 0.4s;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn-submit::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            transition: left 0.6s;
+        }
+        
+        .btn-submit:hover {
+            background: transparent;
+            color: #C0C0C0;
+            transform: scale(1.05);
+        }
+        
+        .btn-submit:hover::before {
+            left: 100%;
+        }
+        
+        /* WHATSAPP */
+        .whatsapp-button {
+            position: fixed;
+            bottom: 20px;
+            right: 15px;
+            background: #25D366;
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 28px;
+            text-decoration: none;
+            z-index: 100;
+            border: 2px solid white;
+            animation: whatsappPulse 2s infinite;
+            transition: all 0.3s;
+        }
+        
+        @keyframes whatsappPulse {
+            0%, 100% { transform: scale(1); box-shadow: 0 0 20px rgba(37, 211, 102, 0.5); }
+            50% { transform: scale(1.1); box-shadow: 0 0 40px rgba(37, 211, 102, 0.9); }
+        }
+        
+        .whatsapp-button:hover {
+            transform: scale(1.15) rotate(5deg);
+            animation: none;
+        }
+        
+        /* MAPA */
+        .mapa-container {
+            margin: 60px 0 40px;
+            padding: 25px;
+            background: #111;
+            border: 1px solid rgba(192,192,192,0.2);
+            border-radius: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .mapa-container::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, transparent, rgba(192,192,192,0.2), transparent);
+            border-radius: 32px;
+            z-index: -1;
+            animation: borderGlow 3s infinite;
+        }
+        
+        .mapa-titulo {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+        
+        .mapa-titulo h3 {
+            font-size: 28px;
+            color: #FFF;
+            font-family: 'Playfair Display', serif;
+            letter-spacing: 2px;
+        }
+        
+        .mapa-titulo p {
+            color: #B0B0B0;
+            font-size: 16px;
+            margin-top: 5px;
+        }
+        
+        .mapa-wrapper {
+            width: 100%;
+            height: 350px;
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid rgba(192,192,192,0.2);
+        }
+        
+        .mapa-wrapper iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+        
+        /* FOOTER */
+        footer {
+            margin-top: 40px;
+            padding: 50px 0 20px;
+            border-top: 1px solid rgba(192,192,192,0.1);
+            position: relative;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px;
+            text-align: center;
+        }
+        
+        @media (min-width: 768px) {
+            .footer-content { grid-template-columns: repeat(3, 1fr); text-align: left; }
+        }
+        
+        .footer-logo {
+            font-size: 32px;
+            font-weight: 900;
+            background: linear-gradient(135deg, #FFF, #C0C0C0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: 4px;
+            margin-bottom: 10px;
+        }
+        
+        .footer-info { font-size: 15px; color: #B0B0B0; line-height: 2; }
+        .footer-info i { color: #C0C0C0; width: 25px; }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 15px;
+        }
+        
+        @media (min-width: 768px) {
+            .social-links { justify-content: flex-start; }
+        }
+        
+        .social-link {
+            width: 40px;
+            height: 40px;
+            border: 1px solid rgba(192,192,192,0.3);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #FFF;
+            text-decoration: none;
+            transition: all 0.4s;
+        }
+        
+        .social-link:hover {
+            background: #C0C0C0;
+            border-color: #C0C0C0;
+            color: #0A0A0A;
+            transform: translateY(-8px) rotate(360deg);
+            box-shadow: 0 15px 30px rgba(192,192,192,0.4);
+        }
+        
+        /* BACK TO TOP */
+        .back-to-top {
+            position: fixed;
+            bottom: 20px;
+            left: 15px;
+            width: 45px;
+            height: 45px;
+            background: #C0C0C0;
+            border: none;
+            color: #0A0A0A;
+            border-radius: 50%;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.4s;
+            font-size: 18px;
+            z-index: 99;
+            border: 2px solid white;
+            box-shadow: 0 5px 15px rgba(192,192,192,0.3);
+        }
+        
+        .back-to-top.visible { opacity: 1; visibility: visible; }
+        
+        .back-to-top:hover {
+            background: #FFF;
+            transform: scale(1.1) rotate(360deg);
+        }
+        
+        /* MODAL */
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.95);
+            backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.5s;
+            padding: 15px;
+        }
+        
+        .modal-overlay.active { opacity: 1; visibility: visible; }
+        
+        .modal {
+            background: #111;
+            border: 2px solid #C0C0C0;
+            padding: 50px 30px;
+            max-width: 450px;
+            width: 100%;
+            text-align: center;
+            border-radius: 30px;
+            transform: scale(0.8);
+            transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.8);
+        }
+        
+        .modal-overlay.active .modal {
+            transform: scale(1);
+        }
+        
+        .modal-icon { 
+            font-size: 70px; 
+            color: #C0C0C0; 
+            margin-bottom: 20px;
+            animation: bounce 1s infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .modal h3 { font-size: 36px; color: #FFF; margin-bottom: 15px; }
+        .modal-detalhes { 
+            margin: 25px 0; 
+            padding: 20px; 
+            border-top: 1px solid rgba(192,192,192,0.3); 
+            border-bottom: 1px solid rgba(192,192,192,0.3); 
+            font-size: 18px;
+        }
+        
+        .modal-btn {
+            background: transparent;
+            border: 2px solid #C0C0C0;
+            color: #C0C0C0;
+            padding: 12px 30px;
+            font-size: 16px;
+            letter-spacing: 3px;
+            border-radius: 40px;
+            cursor: pointer;
+            transition: all 0.4s;
+        }
+        
+        .modal-btn:hover {
+            background: #C0C0C0;
+            color: #0A0A0A;
+            transform: scale(1.1);
+        }
+        
+        .copy {
+            text-align: center;
+            margin-top: 30px;
+            font-size: 12px;
+            color: #666;
+            letter-spacing: 2px;
+        }
+        
+        /* AVISO DE CONCORRÊNCIA */
+        .aviso-concorrencia {
+            background: rgba(192,192,192,0.1);
+            border-left: 4px solid #C0C0C0;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .aviso-concorrencia i {
+            color: #C0C0C0;
+            font-size: 24px;
+        }
+    </style>
+</head>
+<body>
+    <!-- WHATSAPP -->
+    <a href="https://wa.me/5591985601098" class="whatsapp-button" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- MODAL CONFIRMAÇÃO -->
+    <div class="modal-overlay" id="modalConfirmacao">
+        <div class="modal">
+            <div class="modal-icon"><i class="fas fa-cut"></i></div>
+            <h3>CONFIRMADO</h3>
+            <div class="modal-detalhes" id="modalDetalhes"></div>
+            <button class="modal-btn" onclick="fecharModal()">PERFEITO</button>
+        </div>
+    </div>
+
+    <!-- BACK TO TOP -->
+    <button class="back-to-top" id="backToTop"><i class="fas fa-arrow-up"></i></button>
+
+    <div class="container">
+        <!-- HEADER -->
+        <header>
+            <div style="display:flex; justify-content:center; margin:40px 0;">
+                <a href="https://ibb.co/pj2wNhpv" target="_blank">
+                    <img 
+                        src="https://i.ibb.co/XxXL6YTZ/Design-sem-nome.png" 
+                        alt="Design-sem-nome"
+                        class="logo-img"
+                    >
+                </a>
+            </div>
+            
+            <div class="since">BARBER</div>
+            <nav>
+                <ul>
+                    <li><a href="#cortes" class="nav-link">Cortes</a></li>
+                    <li><a href="#barba" class="nav-link">Barba</a></li>
+                    <li><a href="#profissionais" class="nav-link">Profissional</a></li>
+                    <li><a href="#agendamento" class="nav-link">Agendar</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <!-- CORTES -->
+        <section id="cortes">
+            <div class="section-header">
+                <h2 class="section-title"><span>✦</span> CORTES <span>✦</span></h2>
+                <div class="section-subtitle">Tradição e Estilo</div>
+            </div>
+            <div class="pricing-grid">
+                <div class="price-card">
+                    <h3>CORTE</h3>
+                    <div class="price-value">R$ 30<small>,00</small></div>
+                    <button class="btn-card agendar-btn" data-servico="Corte">AGENDAR</button>
+                </div>
+                <div class="price-card">
+                    <h3>CABELO + BARBA</h3>
+                    <div class="price-value">R$ 40<small>,00</small></div>
+                    <button class="btn-card agendar-btn" data-servico="Cabelo e Barba">AGENDAR</button>
+                </div>
+                <div class="price-card">
+                    <h3>CORTE + PIGMENTAÇÃO</h3>
+                    <div class="price-value">R$ 40<small>,00</small></div>
+                    <button class="btn-card agendar-btn" data-servico="Corte e Pigmentação">AGENDAR</button>
+                </div>
+                <div class="price-card">
+                    <h3>CORTE + HIDRATAÇÃO</h3>
+                    <div class="price-value">R$ 45<small>,00</small></div>
+                    <button class="btn-card agendar-btn" data-servico="Corte e Hidratação">AGENDAR</button>
+                </div>
+                <div class="price-card">
+                    <h3>CORTE + LIMPEZA DE PELE</h3>
+                    <div class="price-value">R$ 40<small>,00</small></div>
+                    <button class="btn-card agendar-btn" data-servico="Corte e Limpeza de Pele">AGENDAR</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- BARBA -->
+        <section id="barba">
+            <div class="section-header">
+                <h2 class="section-title"><span>✦</span> BARBA <span>✦</span></h2>
+                <div class="section-subtitle">Arte e Sofisticação</div>
+            </div>
+            <div class="pricing-grid">
+                <div class="price-card">
+                    <h3>BARBA COMPLETA</h3>
+                    <div class="price-value">R$ 35<small>,00</small></div>
+                    <button class="btn-card agendar-btn" data-servico="Barba Completa">AGENDAR</button>
+                </div>
+                <div class="price-card">
+                    <h3>DESENHO</h3>
+                    <div class="price-value">R$ 20<small>,00</small></div>
+                    <button class="btn-card agendar-btn" data-servico="Desenho">AGENDAR</button>
+                </div>
+                <div class="price-card">
+                    <h3>COMBO</h3>
+                    <div class="price-value">R$ 70<small>,00</small></div>
+                    <ul><li>Corte + Barba</li></ul>
+                    <button class="btn-card agendar-btn" data-servico="Combo">AGENDAR</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- PROFISSIONAIS -->
+        <section id="profissionais">
+            <div class="section-header">
+                <h2 class="section-title"><span>✦</span> PROFISSIONAL <span>✦</span></h2>
+                <div class="section-subtitle">Artesão da Navalha</div>
+            </div>
+            <div class="profissionais-grid">
+                <div class="profissional-card">
+                    <div class="profissional-nome">BRANDÃO</div>
+                    <div class="cargo">MASTER BARBER</div>
+                    <div style="color:#C0C0C0; font-size: 22px; margin: 20px 0;">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    </div>
+                    <div style="font-size: 18px; font-style: italic; color: #DDD; max-width: 400px; margin: 0 auto;">
+                        "Tradição e excelência em cada movimento. Especialista em cortes clássicos e tratamentos premium."
+                    </div>
+                    <div style="margin-top: 20px;">
+                        <a href="https://www.instagram.com/brandaoo__?igsh=Njc0dGV6Ymgxa2cx" target="_blank" style="color: #C0C0C0; text-decoration: none; font-size: 16px; border: 1px solid #C0C0C0; padding: 10px 25px; border-radius: 40px; display: inline-block; transition: all 0.3s;" onmouseover="this.style.background='#C0C0C0'; this.style.color='#0A0A0A';" onmouseout="this.style.background='transparent'; this.style.color='#C0C0C0';">
+                            <i class="fab fa-instagram"></i> @brandaoo__
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- HORÁRIOS DE FUNCIONAMENTO -->
+            <div class="horarios-card">
+                <div class="horario-item">
+                    <div class="dia">TERÇA A SÁBADO</div>
+                    <div class="hora">09:00 — 11:00</div>
+                    <div class="hora">15:00 — 20:00</div>
+                    <span class="status ativo">ABERTO</span>
+                </div>
+                <div class="horario-item">
+                    <div class="dia">DOMINGO</div>
+                    <div class="hora">FECHADO</div>
+                    <span class="status">DESCANSO</span>
+                </div>
+                <div class="horario-item">
+                    <div class="dia">SEGUNDA</div>
+                    <div class="hora">FECHADO</div>
+                    <span class="status">DESCANSO</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- AGENDAMENTO -->
+        <section id="agendamento">
+            <div class="section-header">
+                <h2 class="section-title"><span>✦</span> AGENDAR <span>✦</span></h2>
+                <div class="section-subtitle">Reserve seu horário</div>
+            </div>
+            <div class="form-container">
+                <form id="bookingForm">
+                    <div class="aviso-concorrencia">
+                        <i class="fas fa-globe"></i>
+                        <span><strong>HORÁRIOS COMPARTILHADOS:</strong> Todos os clientes veem os mesmos horários! Se alguém reservar antes, o horário fica vermelho para todo mundo.</span>
+                    </div>
+                    
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label><i class="fas fa-user"></i> NOME</label>
+                            <input type="text" id="nome" placeholder="Seu nome" required>
+                        </div>
+                        <div class="form-group">
+                            <label><i class="fas fa-phone-alt"></i> WHATSAPP</label>
+                            <input type="tel" id="whatsapp" placeholder="(91) 99999-9999" required>
+                        </div>
+                        <div class="form-group">
+                            <label><i class="fas fa-cut"></i> SERVIÇO</label>
+                            <select id="servico" required>
+                                <option value="">SELECIONE</option>
+                                <optgroup label="CORTES">
+                                    <option value="Corte">CORTE - R$30</option>
+                                    <option value="Cabelo e Barba">CABELO + BARBA - R$40</option>
+                                    <option value="Corte e Pigmentação">CORTE + PIGMENTAÇÃO - R$40</option>
+                                    <option value="Corte e Hidratação">CORTE + HIDRATAÇÃO - R$45</option>
+                                    <option value="Corte e Limpeza de Pele">CORTE + LIMPEZA DE PELE - R$40</option>
+                                </optgroup>
+                                <optgroup label="BARBA">
+                                    <option value="Barba Completa">BARBA COMPLETA - R$35</option>
+                                    <option value="Desenho">DESENHO - R$20</option>
+                                    <option value="Combo">COMBO - R$70</option>
+                                </optgroup>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label><i class="fas fa-calendar-alt"></i> DATA</label>
+                            <input type="date" id="data" required>
+                        </div>
+                        <div class="form-group">
+                            <label><i class="fas fa-clock"></i> HORÁRIO</label>
+                            <div id="horariosContainer" class="horarios-disponiveis"></div>
+                            <input type="hidden" id="horarioSelecionado">
+                            <div class="legenda-horarios">
+                                <span><span style="background:#2A5C2A; width:12px; height:12px; display:inline-block; border-radius:2px;"></span> Disponível</span>
+                                <span><span style="background:#8B3A3A; width:12px; height:12px; display:inline-block; border-radius:2px;"></span> Ocupado</span>
+                                <span><span style="background:#C0C0C0; width:12px; height:12px; display:inline-block; border-radius:2px;"></span> Selecionado</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label><i class="fas fa-comment"></i> OBS</label>
+                            <textarea id="observacoes" rows="2" placeholder="Observações"></textarea>
+                        </div>
+                    </div>
+                    <div class="resumo-box">
+                        <h4>RESUMO</h4>
+                        <div id="resumoConteudo">
+                            <div class="resumo-linha"><span class="resumo-label">Cliente:</span><span class="resumo-valor" id="resumoNome">—</span></div>
+                            <div class="resumo-linha"><span class="resumo-label">Serviço:</span><span class="resumo-valor" id="resumoServico">—</span></div>
+                            <div class="resumo-linha"><span class="resumo-label">Data/Hora:</span><span class="resumo-valor" id="resumoDataHora">—</span></div>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn-submit">CONFIRMAR AGENDAMENTO</button>
+                </form>
+            </div>
+        </section>
+
+        <!-- MAPA -->
+        <section class="mapa-container" data-aos="fade-up">
+            <div class="mapa-titulo">
+                <h3><span>✦</span> COMO CHEGAR <span>✦</span></h3>
+                <p><i class="fas fa-map-marker-alt" style="color: #C0C0C0; margin-right: 5px;"></i> Ao lado da Duda Sorveteria - Rua Raimundo G. de Morães, Av. São Tomé, 022A, Salinópolis - PA</p>
+            </div>
+            <div class="mapa-wrapper">
+                <iframe 
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15958.847178692105!2d-47.3456!3d-0.6276!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x92a5f8f8f8f8f8f8%3A0x123456789abcdef!2sSalin%C3%B3polis%2C%20State%20of%20Par%C3%A1!5e0!3m2!1sen!2sbr!4v1700000000000!5m2!1sen!2sbr"
+                    loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade"
+                    title="Localização da Barbearia Brandão em Salinópolis"
+                    allowfullscreen>
+                </iframe>
+            </div>
+            <div style="text-align: center; margin-top: 15px;">
+                <a href="https://www.google.com/maps/dir/?api=1&destination=-0.6276,-47.3456" target="_blank" style="color: #C0C0C0; text-decoration: none; border: 1px solid #C0C0C0; padding: 8px 20px; border-radius: 40px; display: inline-block; transition: all 0.3s;" onmouseover="this.style.background='#C0C0C0'; this.style.color='#0A0A0A';" onmouseout="this.style.background='transparent'; this.style.color='#C0C0C0';">
+                    <i class="fas fa-directions"></i> Abrir no Google Maps
+                </a>
+            </div>
+        </section>
+
+        <!-- FOOTER -->
+        <footer>
+            <div class="footer-content">
+                <div>
+                    <div class="footer-logo">BRANDÃO</div>
+                    <div style="color:#C0C0C0;">BARBER</div>
+                </div>
+                <div class="footer-info">
+                    <div><i class="fas fa-map-marker-alt"></i> Salinópolis, PA</div>
+                    <div><i class="fas fa-phone-alt"></i> (91) 98560-1098</div>
+                </div>
+                <div class="footer-info">
+                    <div><i class="fas fa-clock"></i> Ter-Sáb: 9h-11h / 15h-20h</div>
+                    <div><i class="fas fa-clock"></i> Dom/Seg: FECHADO</div>
+                    <div class="social-links">
+                        <a href="https://www.instagram.com/brandaoo__?igsh=Njc0dGV6Ymgxa2cx" class="social-link" target="_blank"><i class="fab fa-instagram"></i></a>
+                        <a href="https://wa.me/5591985601098" class="social-link" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="copy">© 2024 BRANDÃO BARBER</div>
+        </footer>
+    </div>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // ============================================
+        // GOOGLE SHEETS INTEGRATION - HORÁRIOS COMPARTILHADOS
+        // ============================================
+        
+        // SUA URL DO WEB APP DO GOOGLE APPS SCRIPT (JÁ ESTÁ AQUI!)
+        const API_URL = 'https://script.google.com/macros/s/AKfycbzJTDBAZ8MP5wBa8uGewGOqpB2pEGFv9SpWQ2TQM21K0TbBxWcBo_pE1ynuWSfpMTDRdA/exec';
+        
+        // Inicializar AOS
+        AOS.init({ once: true, duration: 800, offset: 100 });
+        
+        // Função para gerar horários de 30 em 30 minutos
+        function gerarHorariosRealistas() {
+            const horarios = [];
+            
+            // Manhã: 9h às 11h (de 30 em 30 min)
+            for (let hora = 9; hora <= 10; hora++) {
+                horarios.push(`${hora.toString().padStart(2, '0')}:00`);
+                horarios.push(`${hora.toString().padStart(2, '0')}:30`);
+            }
+            horarios.push('11:00');
+            
+            // Tarde/Noite: 15h às 20h (de 30 em 30 min)
+            for (let hora = 15; hora <= 19; hora++) {
+                horarios.push(`${hora.toString().padStart(2, '0')}:00`);
+                horarios.push(`${hora.toString().padStart(2, '0')}:30`);
+            }
+            horarios.push('20:00');
+            
+            return horarios;
+        }
+
+        const horariosFixos = gerarHorariosRealistas();
+
+        // ============================================
+        // CARREGAR HORÁRIOS DO GOOGLE SHEETS
+        // ============================================
+        async function carregarHorarios() {
+            const data = document.getElementById('data').value;
+            const container = document.getElementById('horariosContainer');
+            
+            if (!data) {
+                container.innerHTML = '<div style="grid-column: span 3; text-align: center; padding: 15px;">Selecione uma data</div>';
+                return;
+            }
+            
+            const dataObj = new Date(data + 'T12:00:00');
+            const diaSemana = dataObj.getDay();
+            
+            if (diaSemana === 0 || diaSemana === 1) {
+                container.innerHTML = '<div style="grid-column: span 3; text-align: center; padding: 15px; color: #C0C0C0;">⛔ FECHADO - Terça a Sábado</div>';
+                return;
+            }
+            
+            try {
+                // Buscar agendamentos da API
+                const response = await fetch(API_URL);
+                const agendamentosDB = await response.json();
+                
+                const horariosOcupados = agendamentosDB
+                    .filter(a => a.data === data)
+                    .map(a => a.horario);
+                
+                container.innerHTML = horariosFixos.map(horario => {
+                    const ocupado = horariosOcupados.includes(horario);
+                    return `<button type="button" class="horario-btn ${ocupado ? 'indisponivel' : 'disponivel'}" 
+                        data-horario="${horario}" ${ocupado ? 'disabled' : ''}>${horario}</button>`;
+                }).join('');
+                
+                document.querySelectorAll('.horario-btn.disponivel').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        document.querySelectorAll('.horario-btn').forEach(b => b.classList.remove('selecionado'));
+                        this.classList.add('selecionado');
+                        document.getElementById('horarioSelecionado').value = this.dataset.horario;
+                        atualizarResumo();
+                    });
+                });
+                
+            } catch (error) {
+                console.error('Erro ao carregar horários:', error);
+                container.innerHTML = '<div style="grid-column: span 3; text-align: center; padding: 15px; color: #B22222;">Erro ao carregar horários do servidor</div>';
+            }
+        }
+
+        function atualizarResumo() {
+            const nome = document.getElementById('nome').value || '—';
+            const servicoSelect = document.getElementById('servico');
+            const servicoText = servicoSelect.options[servicoSelect.selectedIndex]?.text || '—';
+            const data = document.getElementById('data').value;
+            const horario = document.getElementById('horarioSelecionado').value;
+            
+            document.getElementById('resumoNome').innerText = nome;
+            document.getElementById('resumoServico').innerText = servicoText;
+            
+            let dataHora = '—';
+            if (data && horario) {
+                const dataObj = new Date(data + 'T12:00:00');
+                dataHora = `${dataObj.toLocaleDateString('pt-BR')} ${horario}`;
+            }
+            document.getElementById('resumoDataHora').innerText = dataHora;
+        }
+
+        window.fecharModal = () => document.getElementById('modalConfirmacao').classList.remove('active');
+
+        document.addEventListener('DOMContentLoaded', async function() {
+            console.log('🚀 Sistema com Google Sheets iniciado!');
+            
+            const hoje = new Date().toISOString().split('T')[0];
+            document.getElementById('data').value = hoje;
+            document.getElementById('data').min = hoje;
+            
+            await carregarHorarios();
+            
+            document.getElementById('data').addEventListener('change', function() {
+                carregarHorarios();
+                atualizarResumo();
+            });
+            
+            document.getElementById('nome').addEventListener('input', atualizarResumo);
+            document.getElementById('servico').addEventListener('change', atualizarResumo);
+            
+            document.querySelectorAll('.agendar-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    document.getElementById('agendamento').scrollIntoView({ behavior: 'smooth' });
+                    const select = document.getElementById('servico');
+                    const servicoNome = this.dataset.servico;
+                    
+                    for (let option of select.options) {
+                        if (option.value === servicoNome || option.text.includes(servicoNome)) {
+                            select.value = option.value;
+                            break;
+                        }
+                    }
+                    atualizarResumo();
+                });
+            });
+            
+            document.getElementById('bookingForm').addEventListener('submit', async function(e) {
+                e.preventDefault();
+                
+                const dados = {
+                    nome: document.getElementById('nome').value,
+                    whatsapp: document.getElementById('whatsapp').value,
+                    servico: document.getElementById('servico').value,
+                    data: document.getElementById('data').value,
+                    horario: document.getElementById('horarioSelecionado').value,
+                    observacoes: document.getElementById('observacoes').value
+                };
+                
+                if (!dados.nome || !dados.whatsapp || !dados.servico || !dados.data || !dados.horario) {
+                    alert('❌ Preencha todos os campos obrigatórios!');
+                    return;
+                }
+                
+                const dataObj = new Date(dados.data + 'T12:00:00');
+                const diaSemana = dataObj.getDay();
+                if (diaSemana === 0 || diaSemana === 1) {
+                    alert('⛔ Fechado neste dia! Terça a Sábado apenas.');
+                    return;
+                }
+                
+                try {
+                    // Verificar duplicidade
+                    const response = await fetch(API_URL);
+                    const agendamentosDB = await response.json();
+                    
+                    if (agendamentosDB.some(a => a.data === dados.data && a.horario === dados.horario)) {
+                        alert('⏰ Este horário foi ocupado por outra pessoa! Escolha outro.');
+                        await carregarHorarios();
+                        return;
+                    }
+                    
+                    // Salvar no Google Sheets
+                    await fetch(API_URL, {
+                        method: 'POST',
+                        mode: 'no-cors',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(dados)
+                    });
+                    
+                    console.log('✅ Agendamento salvo no Google Sheets!');
+                    
+                    const dataFormatada = dataObj.toLocaleDateString('pt-BR');
+                    
+                    const mensagem = `🪒 NOVO AGENDAMENTO 🪒%0A%0A👤 Cliente: ${dados.nome}%0A📞 WhatsApp: ${dados.whatsapp}%0A💈 Serviço: ${dados.servico}%0A📅 Data: ${dataFormatada}%0A⏰ Horário: ${dados.horario}%0A📝 Obs: ${dados.observacoes || 'Sem observações'}`;
+                    
+                    window.open(`https://wa.me/5591985601098?text=${mensagem}`, '_blank');
+                    
+                    document.getElementById('modalDetalhes').innerHTML = `
+                        <div>✅ ${dados.nome}, agendamento confirmado!</div>
+                        <div style="color:#C0C0C0; margin: 10px 0;">${dados.servico}</div>
+                        <div style="font-size: 20px;">${dataFormatada} • ${dados.horario}</div>
+                    `;
+                    document.getElementById('modalConfirmacao').classList.add('active');
+                    
+                    this.reset();
+                    document.getElementById('data').value = hoje;
+                    document.getElementById('horarioSelecionado').value = '';
+                    
+                    await carregarHorarios();
+                    atualizarResumo();
+                    
+                } catch (error) {
+                    console.error('❌ Erro no agendamento:', error);
+                    alert('Erro ao realizar agendamento. Tente novamente.');
+                }
+            });
+            
+            document.getElementById('backToTop').addEventListener('click', () => 
+                window.scrollTo({ top: 0, behavior: 'smooth' }));
+            
+            window.addEventListener('scroll', () => 
+                document.getElementById('backToTop').classList.toggle('visible', window.scrollY > 300));
+            
+            document.addEventListener('keydown', e => {
+                if (e.key === 'Escape') {
+                    document.getElementById('modalConfirmacao').classList.remove('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
