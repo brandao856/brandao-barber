@@ -855,7 +855,7 @@
             transform: scale(1.1);
         }
 
-        /* NOVO ESTILO PARA O AVISO */
+        /* AVISO DE CONFIRMAÇÃO */
         .aviso-confirmacao {
             background: rgba(192,192,192,0.15);
             border: 2px solid #C0C0C0;
@@ -898,7 +898,7 @@
     <button class="back-to-top" id="backToTop"><i class="fas fa-arrow-up"></i></button>
 
     <div class="container">
-        <!-- HEADER COM NOVA LOGO -->
+        <!-- HEADER -->
         <header>
             <div style="display:flex; justify-content:center; margin:40px 0;">
                 <a href="https://ibb.co/pj2wNhpv" target="_blank">
@@ -982,7 +982,7 @@
             </div>
         </section>
 
-        <!-- PROFISSIONAIS (SÓ BRANDÃO) -->
+        <!-- PROFISSIONAIS -->
         <section id="profissionais">
             <div class="section-header">
                 <h2 class="section-title"><span>✦</span> PROFISSIONAL <span>✦</span></h2>
@@ -1006,7 +1006,7 @@
                 </div>
             </div>
 
-            <!-- HORÁRIOS DE FUNCIONAMENTO ATUALIZADOS -->
+            <!-- HORÁRIOS DE FUNCIONAMENTO -->
             <div class="horarios-card">
                 <div class="horario-item">
                     <div class="dia">TERÇA A SÁBADO</div>
@@ -1027,7 +1027,7 @@
             </div>
         </section>
 
-        <!-- AGENDAMENTO (SEM OPÇÃO DE PROFISSIONAL) -->
+        <!-- AGENDAMENTO -->
         <section id="agendamento">
             <div class="section-header">
                 <h2 class="section-title"><span>✦</span> AGENDAR <span>✦</span></h2>
@@ -1035,7 +1035,7 @@
             </div>
             <div class="form-container">
                 <form id="bookingForm">
-                    <!-- NOVO AVISO DE CONFIRMAÇÃO -->
+                    <!-- AVISO DE CONFIRMAÇÃO -->
                     <div class="aviso-confirmacao">
                         <i class="fas fa-whatsapp"></i>
                         <strong>IMPORTANTE:</strong> Após enviar, você será direcionado para o WhatsApp. 
@@ -1103,7 +1103,7 @@
             </div>
         </section>
 
-        <!-- MAPA GOOGLE MAPS INTERATIVO -->
+        <!-- MAPA -->
         <section class="mapa-container" data-aos="fade-up">
             <div class="mapa-titulo">
                 <h3><span>✦</span> COMO CHEGAR <span>✦</span></h3>
@@ -1153,8 +1153,11 @@
     <script>
         AOS.init({ once: true, duration: 800, offset: 100 });
         
-        let agendamentos = JSON.parse(localStorage.getItem('agendamentos')) || [];
-        const horariosFixos = ['09:00','10:00','11:00','15:00','16:00','17:00','18:00','19:00','20:00'];
+        // 🔴 TODOS OS HORÁRIOS COMEÇAM VERDES (array vazio)
+        let agendamentos = [];
+        
+        // Horários de 30 em 30 minutos
+        const horariosFixos = ['09:00','09:30','10:00','10:30','11:00','15:00','15:30','16:00','16:30','17:00','17:30','18:00','18:30','19:00','19:30','20:00'];
 
         function carregarHorarios() {
             const data = document.getElementById('data').value;
@@ -1213,6 +1216,8 @@
             document.getElementById('data').value = hoje;
             document.getElementById('data').min = hoje;
             
+            carregarHorarios();
+            
             document.getElementById('data').addEventListener('change', function() {
                 carregarHorarios();
                 atualizarResumo();
@@ -1260,10 +1265,6 @@
                     alert('⛔ Fechado neste dia! Terça a Sábado apenas.');
                     return;
                 }
-                
-                // Salvar no localStorage (opcional, só para controle local)
-                agendamentos.push(dados);
-                localStorage.setItem('agendamentos', JSON.stringify(agendamentos));
                 
                 // Formatar data para mensagem
                 const dataFormatada = new Date(dados.data + 'T12:00:00').toLocaleDateString('pt-BR');
