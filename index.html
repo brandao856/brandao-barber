@@ -2,129 +2,90 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BRANDÃO BARBER</title>
     <style>
-        body { font-family: Arial; background: #0A0A0A; color: white; padding: 20px; }
-        .container { max-width: 600px; margin: 0 auto; }
-        input, select, textarea { width: 100%; padding: 10px; margin: 10px 0; background: #222; border: 1px solid #C0C0C0; color: white; }
-        button { background: #C0C0C0; color: black; padding: 15px; border: none; width: 100%; font-size: 18px; cursor: pointer; }
+        body { background: #0A0A0A; color: white; font-family: Arial; padding: 20px; }
         .horario-btn { padding: 10px; margin: 5px; border: none; color: white; cursor: pointer; width: 70px; }
         .disponivel { background: green; }
         .indisponivel { background: red; cursor: not-allowed; }
-        .selecionado { background: #C0C0C0 !important; color: black; border: 2px solid white; }
-        #horariosContainer { display: flex; flex-wrap: wrap; gap: 5px; margin: 10px 0; }
+        .selecionado { background: #C0C0C0 !important; color: black; }
+        #horariosContainer { display: flex; flex-wrap: wrap; gap: 5px; margin: 20px 0; }
+        input, select { width: 100%; padding: 10px; margin: 10px 0; }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>BRANDÃO BARBER</h1>
-        
-        <form id="bookingForm">
-            <input type="text" id="nome" placeholder="Seu nome" required>
-            <input type="tel" id="whatsapp" placeholder="(91) 99999-9999" required>
-            
-            <select id="servico" required>
-                <option value="">SELECIONE O SERVIÇO</option>
-                <option value="Corte">CORTE - R$30</option>
-                <option value="Cabelo e Barba">CABELO + BARBA - R$40</option>
-                <option value="Barba Completa">BARBA COMPLETA - R$35</option>
-                <option value="Combo">COMBO - R$70</option>
-            </select>
-            
-            <input type="date" id="data" required>
-            
-            <div id="horariosContainer"></div>
-            <input type="hidden" id="horarioSelecionado">
-            
-            <textarea id="observacoes" rows="3" placeholder="Observações"></textarea>
-            
-            <button type="submit">CONFIRMAR AGENDAMENTO</button>
-        </form>
-    </div>
+    <h1>BRANDÃO BARBER</h1>
+    
+    <input type="text" id="nome" placeholder="Seu nome">
+    <input type="text" id="whatsapp" placeholder="WhatsApp">
+    <select id="servico">
+        <option value="Corte">Corte</option>
+        <option value="Barba">Barba</option>
+    </select>
+    <input type="date" id="data" value="2026-02-20">
+    
+    <div id="horariosContainer"></div>
+    <input type="hidden" id="horarioSelecionado">
+    
+    <button id="btnAgendar">AGENDAR</button>
 
     <script>
-        // 🔴 COLE SUA NOVA URL AQUI
-        const API_URL = 'https://script.google.com/macros/s/AKfycbzUDJ1tETqJ-dc14abhCrqNhvIbGFEMHd5DOxFHtlf6691Wg6vFSlsGKJSQhBgBwCbRig/exec';
+        // 🔴 COLE SUA URL DO SHEETDB AQUI
+        const API_URL = 'https://sheetdb.io/api/v1/xxxxx'; // Substitua!
         
-        const horariosFixos = ['09:00','09:30','10:00','10:30','11:00','15:00','15:30','16:00','16:30','17:00','17:30','18:00','18:30','19:00','19:30','20:00'];
+        const horarios = ['09:00','09:30','10:00','10:30','11:00','15:00','15:30','16:00','16:30','17:00'];
 
         async function carregarHorarios() {
             const data = document.getElementById('data').value;
+            const res = await fetch(API_URL);
+            const agendamentos = await res.json();
+            
+            const ocupados = agendamentos.filter(a => a.data === data).map(a => a.horario);
+            console.log('Horários ocupados:', ocupados);
+            
             const container = document.getElementById('horariosContainer');
+            container.innerHTML = '';
             
-            if (!data) return;
-            
-            try {
-                const response = await fetch(API_URL);
-                const agendamentos = await response.json();
+            horarios.forEach(horario => {
+                const btn = document.createElement('button');
+                btn.className = `horario-btn ${ocupados.includes(horario) ? 'indisponivel' : 'disponivel'}`;
+                btn.textContent = horario;
+                btn.disabled = ocupados.includes(horario);
                 
-                const ocupados = agendamentos.filter(a => a.data === data).map(a => a.horario);
+                btn.onclick = () => {
+                    document.querySelectorAll('.horario-btn').forEach(b => b.classList.remove('selecionado'));
+                    btn.classList.add('selecionado');
+                    document.getElementById('horarioSelecionado').value = horario;
+                };
                 
-                container.innerHTML = horariosFixos.map(horario => {
-                    const ocupado = ocupados.includes(horario);
-                    return `<button type="button" class="horario-btn ${ocupado ? 'indisponivel' : 'disponivel'}" 
-                        data-horario="${horario}" ${ocupado ? 'disabled' : ''}>${horario}</button>`;
-                }).join('');
-                
-                document.querySelectorAll('.horario-btn.disponivel').forEach(btn => {
-                    btn.onclick = function() {
-                        document.querySelectorAll('.horario-btn').forEach(b => b.classList.remove('selecionado'));
-                        this.classList.add('selecionado');
-                        document.getElementById('horarioSelecionado').value = this.dataset.horario;
-                    };
-                });
-                
-                console.log('Horários ocupados:', ocupados);
-                
-            } catch (error) {
-                console.error('Erro:', error);
-                container.innerHTML = '<div style="color:red">Erro ao carregar horários</div>';
-            }
+                container.appendChild(btn);
+            });
         }
 
         document.getElementById('data').addEventListener('change', carregarHorarios);
         
-        document.getElementById('bookingForm').addEventListener('submit', async function(e) {
-            e.preventDefault();
-            
+        document.getElementById('btnAgendar').onclick = async () => {
             const dados = {
                 nome: document.getElementById('nome').value,
                 whatsapp: document.getElementById('whatsapp').value,
                 servico: document.getElementById('servico').value,
                 data: document.getElementById('data').value,
-                horario: document.getElementById('horarioSelecionado').value,
-                observacoes: document.getElementById('observacoes').value
+                horario: document.getElementById('horarioSelecionado').value
             };
             
-            if (!dados.horario) {
-                alert('Selecione um horário!');
-                return;
-            }
+            if (!dados.horario) return alert('Selecione um horário!');
             
-            try {
-                await fetch(API_URL, {
-                    method: 'POST',
-                    mode: 'no-cors',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(dados)
-                });
-                
-                alert('Agendamento confirmado!');
-                window.open(`https://wa.me/5591985601098?text=Agendamento: ${dados.nome} - ${dados.data} ${dados.horario}`, '_blank');
-                
-                document.getElementById('horarioSelecionado').value = '';
-                carregarHorarios();
-                
-            } catch (error) {
-                alert('Erro ao agendar');
-            }
-        });
+            await fetch(API_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(dados)
+            });
+            
+            alert('Agendado!');
+            carregarHorarios();
+        };
         
-        // Data atual
-        document.getElementById('data').value = new Date().toISOString().split('T')[0];
         carregarHorarios();
     </script>
 </body>
 </html>
-
