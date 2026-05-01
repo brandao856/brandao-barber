@@ -4,657 +4,125 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
     <title>BRANDÃO • BARBER</title>
-    
-    <!-- FIREBASE -->
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database-compat.js"></script>
-    
-    <!-- FONTES -->
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Cormorant+Garamond:wght@300;400;500;600;700&family=Montserrat:wght@200;300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html { scroll-behavior: smooth; }
-        
-        body {
-            background-color: #0A0A0A;
-            color: #E5E5E5;
-            font-family: 'Cormorant Garamond', serif;
-            line-height: 1.8;
-            overflow-x: hidden;
-            position: relative;
-        }
-        
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle at 30% 50%, rgba(192,192,192,0.03) 0%, transparent 50%);
-            pointer-events: none;
-            z-index: -1;
-        }
-        
+        body { background-color: #0A0A0A; color: #E5E5E5; font-family: 'Cormorant Garamond', serif; line-height: 1.8; overflow-x: hidden; position: relative; }
+        body::before { content: ''; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle at 30% 50%, rgba(192,192,192,0.03) 0%, transparent 50%); pointer-events: none; z-index: -1; }
         .container { max-width: 1400px; margin: 0 auto; padding: 0 20px; position: relative; }
-        
-        .section-title span, .since, .nav-link:hover, .price-value, 
-        .cargo, .stat-number, .resumo-box h4, .footer-info i {
-            color: #C0C0C0 !important;
-        }
-        
-        .btn-card, .btn-submit, .status.ativo {
-            background: #C0C0C0 !important;
-            color: #0A0A0A !important;
-            border-color: #C0C0C0 !important;
-        }
-        
-        .btn-card:hover {
-            background: transparent !important;
-            color: #C0C0C0 !important;
-            transform: translateY(-3px);
-            box-shadow: 0 10px 25px rgba(192,192,192,0.3);
-        }
-        
-        .price-card:hover {
-            transform: translateY(-10px) scale(1.02);
-            border-color: #C0C0C0 !important;
-            box-shadow: 0 20px 40px rgba(192,192,192,0.3) !important;
-            transition: all 0.4s ease;
-        }
-        
+        .section-title span, .since, .nav-link:hover, .price-value, .cargo, .stat-number, .resumo-box h4, .footer-info i { color: #C0C0C0 !important; }
+        .btn-card, .btn-submit, .status.ativo { background: #C0C0C0 !important; color: #0A0A0A !important; border-color: #C0C0C0 !important; }
+        .btn-card:hover { background: transparent !important; color: #C0C0C0 !important; transform: translateY(-3px); box-shadow: 0 10px 25px rgba(192,192,192,0.3); }
+        .price-card:hover { transform: translateY(-10px) scale(1.02); border-color: #C0C0C0 !important; box-shadow: 0 20px 40px rgba(192,192,192,0.3) !important; transition: all 0.4s ease; }
         header { padding: 20px 0 30px; text-align: center; }
-        
-        .logo-img {
-            width: 220px;
-            height: 220px;
-            object-fit: contain;
-            object-position: center;
-            border-radius: 50%;
-            box-shadow: 0 0 25px rgba(192,192,192,0.35);
-            display: block;
-            transition: transform 0.5s ease, box-shadow 0.5s ease;
-            background-color: #0A0A0A;
-            border: 1px solid rgba(192,192,192,0.2);
-        }
-        
-        .logo-img:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 40px rgba(192,192,192,0.6);
-        }
-        
-        .since {
-            font-size: 14px;
-            letter-spacing: 8px;
-            margin-top: 20px;
-            display: inline-block;
-            padding: 8px 30px;
-            border-top: 1px solid rgba(192,192,192,0.3);
-            border-bottom: 1px solid rgba(192,192,192,0.3);
-            animation: fadeInPulse 2s infinite;
-        }
-        
-        @keyframes fadeInPulse {
-            0%, 100% { opacity: 0.8; }
-            50% { opacity: 1; text-shadow: 0 0 10px rgba(192,192,192,0.5); }
-        }
-        
+        .logo-img { width: 220px; height: 220px; object-fit: contain; object-position: center; border-radius: 50%; box-shadow: 0 0 25px rgba(192,192,192,0.35); display: block; transition: transform 0.5s ease, box-shadow 0.5s ease; background-color: #0A0A0A; border: 1px solid rgba(192,192,192,0.2); }
+        .logo-img:hover { transform: scale(1.05); box-shadow: 0 0 40px rgba(192,192,192,0.6); }
+        .since { font-size: 14px; letter-spacing: 8px; margin-top: 20px; display: inline-block; padding: 8px 30px; border-top: 1px solid rgba(192,192,192,0.3); border-bottom: 1px solid rgba(192,192,192,0.3); animation: fadeInPulse 2s infinite; }
+        @keyframes fadeInPulse { 0%, 100% { opacity: 0.8; } 50% { opacity: 1; text-shadow: 0 0 10px rgba(192,192,192,0.5); } }
         nav { margin: 30px 0; overflow-x: auto; white-space: nowrap; -webkit-overflow-scrolling: touch; }
         nav::-webkit-scrollbar { display: none; }
-        
-        nav ul { 
-            display: inline-flex; 
-            gap: 30px; 
-            list-style: none; 
-            padding: 10px 20px;
-            background: rgba(0,0,0,0.5);
-            border-radius: 40px;
-            border: 1px solid rgba(192,192,192,0.2);
-            backdrop-filter: blur(10px);
-        }
-        
-        .nav-link {
-            color: #FFF;
-            text-decoration: none;
-            font-size: 14px;
-            letter-spacing: 3px;
-            padding: 8px 15px;
-            position: relative;
-            transition: all 0.3s;
-        }
-        
-        .nav-link::before {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 0;
-            height: 2px;
-            background: #C0C0C0;
-            transition: width 0.3s ease;
-        }
-        
-        .nav-link:hover { color: #C0C0C0; }
-        .nav-link:hover::before { width: 80%; }
-        
+        nav ul { display: inline-flex; gap: 30px; list-style: none; padding: 10px 20px; background: rgba(0,0,0,0.5); border-radius: 40px; border: 1px solid rgba(192,192,192,0.2); backdrop-filter: blur(10px); }
+        .nav-link { color: #FFF; text-decoration: none; font-size: 14px; letter-spacing: 3px; padding: 8px 15px; position: relative; transition: all 0.3s; }
+        .nav-link::before { content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 0; height: 2px; background: #C0C0C0; transition: width 0.3s ease; }
+        .nav-link:hover { color: #C0C0C0; } .nav-link:hover::before { width: 80%; }
         .section-header { text-align: center; margin: 60px 0 40px; }
-        .section-title { 
-            font-size: clamp(35px, 8vw, 60px); 
-            color: #FFF; 
-            position: relative;
-            display: inline-block;
-        }
-        
-        .section-title span { 
-            font-size: 45px; 
-            margin: 0 5px;
-            animation: rotateStar 3s infinite;
-            display: inline-block;
-        }
-        
-        @keyframes rotateStar {
-            0% { transform: rotate(0deg); }
-            50% { transform: rotate(180deg); }
-            100% { transform: rotate(360deg); }
-        }
-        
-        .section-subtitle { 
-            font-size: 12px; 
-            color: #B0B0B0; 
-            letter-spacing: 5px; 
-            text-transform: uppercase;
-        }
-        
-        .pricing-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 25px;
-        }
-        
+        .section-title { font-size: clamp(35px, 8vw, 60px); color: #FFF; position: relative; display: inline-block; }
+        .section-title span { font-size: 45px; margin: 0 5px; animation: rotateStar 3s infinite; display: inline-block; }
+        @keyframes rotateStar { 0% { transform: rotate(0deg); } 50% { transform: rotate(180deg); } 100% { transform: rotate(360deg); } }
+        .section-subtitle { font-size: 12px; color: #B0B0B0; letter-spacing: 5px; text-transform: uppercase; }
+        .pricing-grid { display: grid; grid-template-columns: 1fr; gap: 25px; }
         @media (min-width: 768px) { .pricing-grid { grid-template-columns: repeat(2, 1fr); } }
         @media (min-width: 1024px) { .pricing-grid { grid-template-columns: repeat(3, 1fr); } }
-        
-        .price-card {
-            background: #111;
-            border: 1px solid rgba(192,192,192,0.1);
-            padding: 35px 25px;
-            border-radius: 20px;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            position: relative;
-            overflow: hidden;
-        }
-        
+        .price-card { background: #111; border: 1px solid rgba(192,192,192,0.1); padding: 35px 25px; border-radius: 20px; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); position: relative; overflow: hidden; }
         .price-card h3 { font-size: 28px; color: #FFF; margin-bottom: 15px; }
-        .price-value { 
-            font-size: 50px; 
-            font-weight: 900; 
-            margin: 20px 0;
-            text-shadow: 0 0 15px rgba(192,192,192,0.3);
-        }
+        .price-value { font-size: 50px; font-weight: 900; margin: 20px 0; text-shadow: 0 0 15px rgba(192,192,192,0.3); }
         .price-value small { font-size: 18px; color: #B0B0B0; }
-        
-        .btn-card {
-            background: transparent;
-            border: 2px solid #C0C0C0;
-            color: #FFF;
-            padding: 15px;
-            width: 100%;
-            font-size: 14px;
-            letter-spacing: 3px;
-            border-radius: 40px;
-            cursor: pointer;
-            transition: all 0.4s;
-            margin-top: 10px;
-        }
-        
-        .profissionais-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 20px;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-        
-        .profissional-card {
-            background: #111;
-            border: 1px solid rgba(192,192,192,0.1);
-            padding: 50px 30px;
-            text-align: center;
-            border-radius: 30px;
-            transition: all 0.5s;
-        }
-        
-        .profissional-card:hover {
-            transform: scale(1.03);
-            border-color: rgba(192,192,192,0.5);
-            box-shadow: 0 30px 50px rgba(0,0,0,0.8);
-        }
-        
+        .btn-card { background: transparent; border: 2px solid #C0C0C0; color: #FFF; padding: 15px; width: 100%; font-size: 14px; letter-spacing: 3px; border-radius: 40px; cursor: pointer; transition: all 0.4s; margin-top: 10px; }
+        .profissionais-grid { display: grid; grid-template-columns: 1fr; gap: 20px; max-width: 600px; margin: 0 auto; }
+        .profissional-card { background: #111; border: 1px solid rgba(192,192,192,0.1); padding: 50px 30px; text-align: center; border-radius: 30px; transition: all 0.5s; }
+        .profissional-card:hover { transform: scale(1.03); border-color: rgba(192,192,192,0.5); box-shadow: 0 30px 50px rgba(0,0,0,0.8); }
         .profissional-nome { font-size: 48px; color: #FFF; letter-spacing: 4px; margin-bottom: 15px; }
         .cargo { font-size: 16px; letter-spacing: 5px; margin-bottom: 25px; }
-        
-        .horarios-card {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 20px;
-            background: rgba(192,192,192,0.05);
-            border: 1px solid rgba(192,192,192,0.2);
-            padding: 35px 25px;
-            border-radius: 30px;
-            margin-top: 50px;
-        }
-        
+        .horarios-card { display: grid; grid-template-columns: 1fr; gap: 20px; background: rgba(192,192,192,0.05); border: 1px solid rgba(192,192,192,0.2); padding: 35px 25px; border-radius: 30px; margin-top: 50px; }
         @media (min-width: 768px) { .horarios-card { grid-template-columns: repeat(3, 1fr); } }
-        
-        .horario-item { text-align: center; }
-        .dia { font-size: 18px; font-weight: 600; color: #C0C0C0; margin-bottom: 10px; }
-        .hora { font-size: 24px; margin-bottom: 10px; }
-        .status {
-            display: inline-block;
-            padding: 6px 20px;
-            border: 1px solid #C0C0C0;
-            font-size: 11px;
-            border-radius: 30px;
-        }
+        .horario-item { text-align: center; } .dia { font-size: 18px; font-weight: 600; color: #C0C0C0; margin-bottom: 10px; } .hora { font-size: 24px; margin-bottom: 10px; }
+        .status { display: inline-block; padding: 6px 20px; border: 1px solid #C0C0C0; font-size: 11px; border-radius: 30px; }
         .status.ativo { animation: pulse 2s infinite; }
-        
-        @keyframes pulse {
-            0%, 100% { box-shadow: 0 0 10px rgba(192,192,192,0.5); }
-            50% { box-shadow: 0 0 25px rgba(192,192,192,0.9); }
-        }
-        
-        .form-container {
-            background: #111;
-            border: 1px solid rgba(192,192,192,0.2);
-            padding: 35px 25px;
-            border-radius: 30px;
-        }
-        
+        @keyframes pulse { 0%, 100% { box-shadow: 0 0 10px rgba(192,192,192,0.5); } 50% { box-shadow: 0 0 25px rgba(192,192,192,0.9); } }
+        .form-container { background: #111; border: 1px solid rgba(192,192,192,0.2); padding: 35px 25px; border-radius: 30px; }
         .form-grid { display: grid; gap: 20px; }
-        
-        label {
-            display: block;
-            margin-bottom: 8px;
-            font-size: 12px;
-            letter-spacing: 2px;
-            color: #B0B0B0;
-        }
+        label { display: block; margin-bottom: 8px; font-size: 12px; letter-spacing: 2px; color: #B0B0B0; }
         label i { color: #C0C0C0; margin-right: 8px; }
-        
-        input, select, textarea {
-            width: 100%;
-            padding: 15px;
-            background: rgba(0,0,0,0.7);
-            border: 1px solid rgba(192,192,192,0.2);
-            color: #FFF;
-            border-radius: 10px;
-            font-size: 16px;
-            transition: all 0.3s;
-        }
-        
-        input:focus, select:focus, textarea:focus {
-            outline: none;
-            border-color: #C0C0C0;
-            box-shadow: 0 0 20px rgba(192,192,192,0.3);
-        }
-        
-        .horarios-disponiveis {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 8px;
-        }
+        input, select, textarea { width: 100%; padding: 15px; background: rgba(0,0,0,0.7); border: 1px solid rgba(192,192,192,0.2); color: #FFF; border-radius: 10px; font-size: 16px; transition: all 0.3s; }
+        input:focus, select:focus, textarea:focus { outline: none; border-color: #C0C0C0; box-shadow: 0 0 20px rgba(192,192,192,0.3); }
+        .horarios-disponiveis { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
         @media (min-width: 480px) { .horarios-disponiveis { grid-template-columns: repeat(3, 1fr); } }
         @media (min-width: 768px) { .horarios-disponiveis { grid-template-columns: repeat(5, 1fr); } }
-        
-        .horario-btn {
-            padding: 12px 5px;
-            border: none;
-            color: #FFF;
-            cursor: pointer;
-            font-size: 15px;
-            font-weight: 600;
-            border-radius: 8px;
-            transition: all 0.3s;
-        }
-        
-        .horario-btn.disponivel { background: #2A5C2A; }
-        .horario-btn.disponivel:hover {
-            background: #4CAF50;
-            transform: scale(1.1);
-        }
-        
-        .horario-btn.indisponivel { 
-            background: #8B3A3A; 
-            cursor: not-allowed; 
-            opacity: 0.7;
-            text-decoration: line-through;
-        }
-        
-        .horario-btn.selecionado { 
-            background: #C0C0C0 !important; 
-            color: #0A0A0A; 
-            border: 2px solid #FFF; 
-            transform: scale(1.1);
-            box-shadow: 0 0 30px rgba(192,192,192,0.8);
-        }
-        
-        .legenda-horarios {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            justify-content: center;
-            margin-top: 10px;
-            font-size: 11px;
-            color: #B0B0B0;
-        }
-        
-        .resumo-box {
-            margin: 30px 0;
-            padding: 25px;
-            background: rgba(192,192,192,0.05);
-            border: 1px solid rgba(192,192,192,0.2);
-            border-radius: 20px;
-        }
-        
+        .horario-btn { padding: 12px 5px; border: none; color: #FFF; cursor: pointer; font-size: 15px; font-weight: 600; border-radius: 8px; transition: all 0.3s; }
+        .horario-btn.disponivel { background: #2A5C2A; } .horario-btn.disponivel:hover { background: #4CAF50; transform: scale(1.1); }
+        .horario-btn.indisponivel { background: #8B3A3A; cursor: not-allowed; opacity: 0.7; text-decoration: line-through; }
+        .horario-btn.selecionado { background: #C0C0C0 !important; color: #0A0A0A; border: 2px solid #FFF; transform: scale(1.1); box-shadow: 0 0 30px rgba(192,192,192,0.8); }
+        .legenda-horarios { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-top: 10px; font-size: 11px; color: #B0B0B0; }
+        .resumo-box { margin: 30px 0; padding: 25px; background: rgba(192,192,192,0.05); border: 1px solid rgba(192,192,192,0.2); border-radius: 20px; }
         .resumo-box h4 { font-size: 18px; letter-spacing: 3px; margin-bottom: 15px; }
-        
-        .resumo-linha { 
-            display: flex; 
-            justify-content: space-between; 
-            padding: 10px 0; 
-            border-bottom: 1px solid rgba(255,255,255,0.05);
-        }
-        
-        .resumo-label { color: #B0B0B0; }
-        .resumo-valor { color: #FFF; font-weight: 600; }
-        
-        .btn-submit {
-            background: #C0C0C0;
-            border: 2px solid #C0C0C0;
-            color: #0A0A0A;
-            padding: 18px;
-            width: 100%;
-            font-size: 16px;
-            letter-spacing: 4px;
-            border-radius: 40px;
-            cursor: pointer;
-            transition: all 0.4s;
-            font-weight: bold;
-        }
-        
-        .btn-submit:hover {
-            background: transparent;
-            color: #C0C0C0;
-            transform: scale(1.02);
-        }
-        
-        .whatsapp-button {
-            position: fixed;
-            bottom: 20px;
-            right: 15px;
-            background: #25D366;
-            width: 55px;
-            height: 55px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 28px;
-            text-decoration: none;
-            z-index: 100;
-            border: 2px solid white;
-            animation: whatsappPulse 2s infinite;
-        }
-        
-        @keyframes whatsappPulse {
-            0%, 100% { transform: scale(1); box-shadow: 0 0 20px rgba(37, 211, 102, 0.5); }
-            50% { transform: scale(1.1); box-shadow: 0 0 40px rgba(37, 211, 102, 0.9); }
-        }
-        
-        .mapa-container {
-            margin: 60px 0 40px;
-            padding: 25px;
-            background: #111;
-            border: 1px solid rgba(192,192,192,0.2);
-            border-radius: 30px;
-        }
-        
-        .mapa-titulo { text-align: center; margin-bottom: 25px; }
-        .mapa-titulo h3 { font-size: 28px; color: #FFF; }
-        .mapa-titulo p { color: #B0B0B0; font-size: 16px; margin-top: 5px; }
-        
-        .mapa-wrapper {
-            width: 100%;
-            height: 350px;
-            border-radius: 20px;
-            overflow: hidden;
-            border: 1px solid rgba(192,192,192,0.2);
-        }
-        
+        .resumo-linha { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
+        .resumo-label { color: #B0B0B0; } .resumo-valor { color: #FFF; font-weight: 600; }
+        .btn-submit { background: #C0C0C0; border: 2px solid #C0C0C0; color: #0A0A0A; padding: 18px; width: 100%; font-size: 16px; letter-spacing: 4px; border-radius: 40px; cursor: pointer; transition: all 0.4s; font-weight: bold; }
+        .btn-submit:hover { background: transparent; color: #C0C0C0; transform: scale(1.02); }
+        .whatsapp-button { position: fixed; bottom: 20px; right: 15px; background: #25D366; width: 55px; height: 55px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 28px; text-decoration: none; z-index: 100; border: 2px solid white; animation: whatsappPulse 2s infinite; }
+        @keyframes whatsappPulse { 0%, 100% { transform: scale(1); box-shadow: 0 0 20px rgba(37, 211, 102, 0.5); } 50% { transform: scale(1.1); box-shadow: 0 0 40px rgba(37, 211, 102, 0.9); } }
+        .mapa-container { margin: 60px 0 40px; padding: 25px; background: #111; border: 1px solid rgba(192,192,192,0.2); border-radius: 30px; }
+        .mapa-titulo { text-align: center; margin-bottom: 25px; } .mapa-titulo h3 { font-size: 28px; color: #FFF; } .mapa-titulo p { color: #B0B0B0; font-size: 16px; margin-top: 5px; }
+        .mapa-wrapper { width: 100%; height: 350px; border-radius: 20px; overflow: hidden; border: 1px solid rgba(192,192,192,0.2); }
         .mapa-wrapper iframe { width: 100%; height: 100%; border: 0; }
-        
-        footer {
-            margin-top: 40px;
-            padding: 50px 0 20px;
-            border-top: 1px solid rgba(192,192,192,0.1);
-        }
-        
-        .footer-content {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 30px;
-            text-align: center;
-        }
-        
+        footer { margin-top: 40px; padding: 50px 0 20px; border-top: 1px solid rgba(192,192,192,0.1); }
+        .footer-content { display: grid; grid-template-columns: 1fr; gap: 30px; text-align: center; }
         @media (min-width: 768px) { .footer-content { grid-template-columns: repeat(3, 1fr); text-align: left; } }
-        
-        .footer-logo {
-            font-size: 32px;
-            font-weight: 900;
-            background: linear-gradient(135deg, #FFF, #C0C0C0);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            letter-spacing: 4px;
-        }
-        
-        .footer-info { font-size: 15px; color: #B0B0B0; line-height: 2; }
-        .footer-info i { color: #C0C0C0; width: 25px; }
-        
+        .footer-logo { font-size: 32px; font-weight: 900; background: linear-gradient(135deg, #FFF, #C0C0C0); -webkit-background-clip: text; -webkit-text-fill-color: transparent; letter-spacing: 4px; }
+        .footer-info { font-size: 15px; color: #B0B0B0; line-height: 2; } .footer-info i { color: #C0C0C0; width: 25px; }
         .social-links { display: flex; gap: 15px; justify-content: center; margin-top: 15px; }
         @media (min-width: 768px) { .social-links { justify-content: flex-start; } }
-        
-        .social-link {
-            width: 40px;
-            height: 40px;
-            border: 1px solid rgba(192,192,192,0.3);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #FFF;
-            text-decoration: none;
-            transition: all 0.4s;
-        }
-        
-        .social-link:hover {
-            background: #C0C0C0;
-            color: #0A0A0A;
-            transform: translateY(-5px);
-        }
-        
-        .back-to-top {
-            position: fixed;
-            bottom: 20px;
-            left: 15px;
-            width: 45px;
-            height: 45px;
-            background: #C0C0C0;
-            border: none;
-            color: #0A0A0A;
-            border-radius: 50%;
-            cursor: pointer;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.4s;
-            font-size: 18px;
-            z-index: 99;
-        }
-        
+        .social-link { width: 40px; height: 40px; border: 1px solid rgba(192,192,192,0.3); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #FFF; text-decoration: none; transition: all 0.4s; }
+        .social-link:hover { background: #C0C0C0; color: #0A0A0A; transform: translateY(-5px); }
+        .back-to-top { position: fixed; bottom: 20px; left: 15px; width: 45px; height: 45px; background: #C0C0C0; border: none; color: #0A0A0A; border-radius: 50%; cursor: pointer; opacity: 0; visibility: hidden; transition: all 0.4s; font-size: 18px; z-index: 99; }
         .back-to-top.visible { opacity: 1; visibility: visible; }
-        
-        .modal-overlay {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.95);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 2000;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.5s;
-        }
-        
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); display: flex; align-items: center; justify-content: center; z-index: 2000; opacity: 0; visibility: hidden; transition: all 0.5s; }
         .modal-overlay.active { opacity: 1; visibility: visible; }
-        
-        .modal {
-            background: #111;
-            border: 2px solid #C0C0C0;
-            padding: 50px 30px;
-            max-width: 450px;
-            width: 100%;
-            text-align: center;
-            border-radius: 30px;
-            transform: scale(0.8);
-            transition: all 0.6s;
-        }
-        
+        .modal { background: #111; border: 2px solid #C0C0C0; padding: 50px 30px; max-width: 450px; width: 100%; text-align: center; border-radius: 30px; transform: scale(0.8); transition: all 0.6s; }
         .modal-overlay.active .modal { transform: scale(1); }
-        
-        .modal-icon { font-size: 70px; color: #C0C0C0; margin-bottom: 20px; }
-        .modal h3 { font-size: 36px; color: #FFF; margin-bottom: 15px; }
+        .modal-icon { font-size: 70px; color: #C0C0C0; margin-bottom: 20px; } .modal h3 { font-size: 36px; color: #FFF; margin-bottom: 15px; }
         .modal-detalhes { margin: 25px 0; padding: 20px; border-top: 1px solid rgba(192,192,192,0.3); border-bottom: 1px solid rgba(192,192,192,0.3); font-size: 18px; }
-        
-        .modal-btn {
-            background: transparent;
-            border: 2px solid #C0C0C0;
-            color: #C0C0C0;
-            padding: 12px 30px;
-            font-size: 16px;
-            letter-spacing: 3px;
-            border-radius: 40px;
-            cursor: pointer;
-            transition: all 0.4s;
-        }
-        
+        .modal-btn { background: transparent; border: 2px solid #C0C0C0; color: #C0C0C0; padding: 12px 30px; font-size: 16px; letter-spacing: 3px; border-radius: 40px; cursor: pointer; transition: all 0.4s; }
         .modal-btn:hover { background: #C0C0C0; color: #0A0A0A; }
-        
-        .aviso-confirmacao {
-            background: rgba(192,192,192,0.15);
-            border: 2px solid #C0C0C0;
-            border-radius: 10px;
-            padding: 15px;
-            margin-bottom: 20px;
-            text-align: center;
-            font-size: 16px;
-        }
-        
-        .aviso-confirmacao i { color: #C0C0C0; font-size: 24px; margin-right: 10px; }
-        .aviso-confirmacao strong { color: #C0C0C0; font-size: 18px; }
-        
-        .connection-status {
-            position: fixed;
-            top: 10px;
-            right: 10px;
-            padding: 8px 20px;
-            border-radius: 25px;
-            font-size: 13px;
-            z-index: 9999;
-            background: #111;
-            font-weight: bold;
-            letter-spacing: 1px;
-        }
-        
-        .connection-status.online { color: #4CAF50; border: 1px solid #4CAF50; }
-        .connection-status.offline { color: #f44336; border: 1px solid #f44336; }
-        
-        .loading-indicator {
-            text-align: center;
-            padding: 20px;
-            color: #C0C0C0;
-            display: none;
-        }
-        
-        .loading-indicator.active { display: block; }
-        
-        .loading-indicator i {
-            animation: spin 1s linear infinite;
-            font-size: 24px;
-        }
-        
-        @keyframes spin {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-        
-        .atualizacao-tempo {
-            text-align: center;
-            font-size: 11px;
-            color: #666;
-            margin-top: 10px;
-        }
-        
-        .synced-badge {
-            display: inline-block;
-            background: #1a3a1a;
-            color: #4CAF50;
-            padding: 3px 10px;
-            border-radius: 15px;
-            font-size: 10px;
-            letter-spacing: 1px;
-            margin-left: 5px;
-        }
+        .aviso-confirmacao { background: rgba(192,192,192,0.15); border: 2px solid #C0C0C0; border-radius: 10px; padding: 15px; margin-bottom: 20px; text-align: center; font-size: 16px; }
+        .aviso-confirmacao i { color: #C0C0C0; font-size: 24px; margin-right: 10px; } .aviso-confirmacao strong { color: #C0C0C0; font-size: 18px; }
+        .connection-status { position: fixed; top: 10px; right: 10px; padding: 8px 20px; border-radius: 25px; font-size: 13px; z-index: 9999; background: #111; font-weight: bold; letter-spacing: 1px; }
+        .connection-status.online { color: #4CAF50; border: 1px solid #4CAF50; } .connection-status.offline { color: #f44336; border: 1px solid #f44336; }
+        .loading-indicator { text-align: center; padding: 20px; color: #C0C0C0; display: none; } .loading-indicator.active { display: block; }
+        .loading-indicator i { animation: spin 1s linear infinite; font-size: 24px; }
+        @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        .atualizacao-tempo { text-align: center; font-size: 11px; color: #666; margin-top: 10px; }
+        .synced-badge { display: inline-block; background: #1a3a1a; color: #4CAF50; padding: 3px 10px; border-radius: 15px; font-size: 10px; letter-spacing: 1px; margin-left: 5px; }
     </style>
 </head>
 <body>
     <div class="connection-status offline" id="connectionStatus"><i class="fas fa-circle"></i> OFFLINE</div>
-
     <a href="https://wa.me/5591985601098" class="whatsapp-button" target="_blank"><i class="fab fa-whatsapp"></i></a>
-
-    <div class="modal-overlay" id="modalConfirmacao">
-        <div class="modal">
-            <div class="modal-icon"><i class="fas fa-cut"></i></div>
-            <h3>CONFIRMADO</h3>
-            <div class="modal-detalhes" id="modalDetalhes"></div>
-            <button class="modal-btn" onclick="fecharModal()">PERFEITO</button>
-        </div>
-    </div>
-
+    <div class="modal-overlay" id="modalConfirmacao"><div class="modal"><div class="modal-icon"><i class="fas fa-cut"></i></div><h3>CONFIRMADO</h3><div class="modal-detalhes" id="modalDetalhes"></div><button class="modal-btn" onclick="fecharModal()">PERFEITO</button></div></div>
     <button class="back-to-top" id="backToTop"><i class="fas fa-arrow-up"></i></button>
-
     <div class="container">
         <header>
-            <div style="display:flex; justify-content:center; margin:40px 0;">
-                <a href="https://ibb.co/pj2wNhpv" target="_blank"><img src="https://i.ibb.co/XxXL6YTZ/Design-sem-nome.png" alt="Design-sem-nome" class="logo-img"></a>
-            </div>
+            <div style="display:flex; justify-content:center; margin:40px 0;"><a href="https://ibb.co/pj2wNhpv" target="_blank"><img src="https://i.ibb.co/XxXL6YTZ/Design-sem-nome.png" alt="Design-sem-nome" class="logo-img"></a></div>
             <div class="since">BARBER</div>
-            <nav>
-                <ul>
-                    <li><a href="#cortes" class="nav-link">Cortes</a></li>
-                    <li><a href="#barba" class="nav-link">Barba</a></li>
-                    <li><a href="#profissionais" class="nav-link">Profissional</a></li>
-                    <li><a href="#agendamento" class="nav-link">Agendar</a></li>
-                </ul>
-            </nav>
+            <nav><ul><li><a href="#cortes" class="nav-link">Cortes</a></li><li><a href="#barba" class="nav-link">Barba</a></li><li><a href="#profissionais" class="nav-link">Profissional</a></li><li><a href="#agendamento" class="nav-link">Agendar</a></li></ul></nav>
         </header>
-
         <section id="cortes">
-            <div class="section-header">
-                <h2 class="section-title"><span>✦</span> CORTES <span>✦</span></h2>
-                <div class="section-subtitle">Tradição e Estilo</div>
-            </div>
+            <div class="section-header"><h2 class="section-title"><span>✦</span> CORTES <span>✦</span></h2><div class="section-subtitle">Tradição e Estilo</div></div>
             <div class="pricing-grid">
                 <div class="price-card"><h3>CORTE</h3><div class="price-value">R$ 30<small>,00</small></div><button class="btn-card agendar-btn" data-servico="Corte">AGENDAR</button></div>
                 <div class="price-card"><h3>CABELO + BARBA</h3><div class="price-value">R$ 40<small>,00</small></div><button class="btn-card agendar-btn" data-servico="Cabelo e Barba">AGENDAR</button></div>
@@ -663,28 +131,19 @@
                 <div class="price-card"><h3>CORTE + LIMPEZA DE PELE</h3><div class="price-value">R$ 40<small>,00</small></div><button class="btn-card agendar-btn" data-servico="Corte e Limpeza de Pele">AGENDAR</button></div>
             </div>
         </section>
-
         <section id="barba">
-            <div class="section-header">
-                <h2 class="section-title"><span>✦</span> BARBA <span>✦</span></h2>
-                <div class="section-subtitle">Arte e Sofisticação</div>
-            </div>
+            <div class="section-header"><h2 class="section-title"><span>✦</span> BARBA <span>✦</span></h2><div class="section-subtitle">Arte e Sofisticação</div></div>
             <div class="pricing-grid">
                 <div class="price-card"><h3>BARBA COMPLETA</h3><div class="price-value">R$ 35<small>,00</small></div><button class="btn-card agendar-btn" data-servico="Barba Completa">AGENDAR</button></div>
                 <div class="price-card"><h3>DESENHO</h3><div class="price-value">R$ 20<small>,00</small></div><button class="btn-card agendar-btn" data-servico="Desenho">AGENDAR</button></div>
                 <div class="price-card"><h3>COMBO</h3><div class="price-value">R$ 70<small>,00</small></div><ul><li>Corte + Barba</li></ul><button class="btn-card agendar-btn" data-servico="Combo">AGENDAR</button></div>
             </div>
         </section>
-
         <section id="profissionais">
-            <div class="section-header">
-                <h2 class="section-title"><span>✦</span> PROFISSIONAL <span>✦</span></h2>
-                <div class="section-subtitle">Artesão da Navalha</div>
-            </div>
+            <div class="section-header"><h2 class="section-title"><span>✦</span> PROFISSIONAL <span>✦</span></h2><div class="section-subtitle">Artesão da Navalha</div></div>
             <div class="profissionais-grid">
                 <div class="profissional-card">
-                    <div class="profissional-nome">BRANDÃO</div>
-                    <div class="cargo">MASTER BARBER</div>
+                    <div class="profissional-nome">BRANDÃO</div><div class="cargo">MASTER BARBER</div>
                     <div style="color:#C0C0C0; font-size: 22px; margin: 20px 0;"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
                     <div style="font-size: 18px; font-style: italic; color: #DDD; max-width: 400px; margin: 0 auto;">"Tradição e excelência em cada movimento. Especialista em cortes clássicos e tratamentos premium."</div>
                     <div style="margin-top: 20px;"><a href="https://www.instagram.com/brandaoo__?igsh=Njc0dGV6Ymgxa2cx" target="_blank" style="color: #C0C0C0; text-decoration: none; font-size: 16px; border: 1px solid #C0C0C0; padding: 10px 25px; border-radius: 40px; display: inline-block; transition: all 0.3s;" onmouseover="this.style.background='#C0C0C0'; this.style.color='#0A0A0A';" onmouseout="this.style.background='transparent'; this.style.color='#C0C0C0';"><i class="fab fa-instagram"></i> @brandaoo__</a></div>
@@ -696,12 +155,8 @@
                 <div class="horario-item"><div class="dia">SEGUNDA</div><div class="hora">FECHADO</div><span class="status">DESCANSO</span></div>
             </div>
         </section>
-
         <section id="agendamento">
-            <div class="section-header">
-                <h2 class="section-title"><span>✦</span> AGENDAR <span>✦</span> <span class="synced-badge"><i class="fas fa-cloud"></i> TEMPO REAL</span></h2>
-                <div class="section-subtitle">Reserve seu horário</div>
-            </div>
+            <div class="section-header"><h2 class="section-title"><span>✦</span> AGENDAR <span>✦</span> <span class="synced-badge"><i class="fas fa-cloud"></i> TEMPO REAL</span></h2><div class="section-subtitle">Reserve seu horário</div></div>
             <div class="form-container">
                 <form id="bookingForm">
                     <div class="aviso-confirmacao"><i class="fas fa-whatsapp"></i><strong>IMPORTANTE:</strong> Após enviar, você será direcionado para o WhatsApp.<span style="color: #C0C0C0; display: block; margin-top: 10px; font-size: 14px;">Envie a mensagem para o Brandão confirmar se o horário ainda está disponível!</span></div>
@@ -718,13 +173,11 @@
                 </form>
             </div>
         </section>
-
         <section class="mapa-container" data-aos="fade-up">
             <div class="mapa-titulo"><h3><span>✦</span> COMO CHEGAR <span>✦</span></h3><p><i class="fas fa-map-marker-alt" style="color: #C0C0C0; margin-right: 5px;"></i> Ao lado da Duda Sorveteria - Rua Raimundo G. de Morães, Av. São Tomé, 022A, Salinópolis - PA</p></div>
             <div class="mapa-wrapper"><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15958.847178692105!2d-47.3456!3d-0.6276!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x92a5f8f8f8f8f8f8%3A0x123456789abcdef!2sSalin%C3%B3polis%2C%20State%20of%20Par%C3%A1!5e0!3m2!1sen!2sbr!4v1700000000000!5m2!1sen!2sbr" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe></div>
             <div style="text-align: center; margin-top: 15px;"><a href="https://www.google.com/maps/dir/?api=1&destination=-0.6276,-47.3456" target="_blank" style="color: #C0C0C0; text-decoration: none; border: 1px solid #C0C0C0; padding: 8px 20px; border-radius: 40px; display: inline-block; transition: all 0.3s;" onmouseover="this.style.background='#C0C0C0'; this.style.color='#0A0A0A';" onmouseout="this.style.background='transparent'; this.style.color='#C0C0C0';"><i class="fas fa-directions"></i> Abrir no Google Maps</a></div>
         </section>
-
         <footer>
             <div class="footer-content">
                 <div><div class="footer-logo">BRANDÃO</div><div style="color:#C0C0C0;">BARBER</div></div>
@@ -734,11 +187,9 @@
             <div style="text-align: center; margin-top: 30px; color: #666; font-size: 12px;">© 2024 BRANDÃO BARBER</div>
         </footer>
     </div>
-
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         AOS.init({ once: true, duration: 800, offset: 100 });
-        
         const firebaseConfig = {
             apiKey: "AIzaSyAKA9O9jCud6pJaP1uNDWDAR0EcMfNbh94",
             authDomain: "brandao-barber.firebaseapp.com",
@@ -748,14 +199,11 @@
             messagingSenderId: "37453041082",
             appId: "1:37453041082:web:bd8dd33ae2b8dd59912183"
         };
-        
         firebase.initializeApp(firebaseConfig);
         const database = firebase.database();
-        
         const horariosFixos = ['09:00','09:30','10:00','10:30','11:00','15:00','15:30','16:00','16:30','17:00','17:30','18:00','18:30','19:00','19:30','20:00'];
         const agendamentosRef = database.ref('agendamentos');
         let agendamentosCache = {};
-        
         const connectionStatus = document.getElementById('connectionStatus');
         database.ref('.info/connected').on('value', (snap) => {
             if (snap.val() === true) {
@@ -766,15 +214,12 @@
                 connectionStatus.className = 'connection-status offline';
             }
         });
-        
         function isHorarioPassado(data, horario) {
             const agora = new Date();
-            const [hora, minuto] = horario.split(':');
-            const dataHorario = new Date(data + 'T' + hora + ':' + minuto + ':00');
-            dataHorario.setMinutes(dataHorario.getMinutes() + 30);
+            const [hora, minuto] = horario.split(':').map(Number);
+            const dataHorario = new Date(data + 'T' + String(hora).padStart(2,'0') + ':' + String(minuto).padStart(2,'0') + ':00');
             return dataHorario < agora;
         }
-        
         function limparAgendamentosPassados() {
             Object.entries(agendamentosCache).forEach(([id, agendamento]) => {
                 if (isHorarioPassado(agendamento.data, agendamento.horario)) {
@@ -782,7 +227,6 @@
                 }
             });
         }
-        
         agendamentosRef.on('value', (snapshot) => {
             agendamentosCache = snapshot.val() || {};
             limparAgendamentosPassados();
@@ -792,7 +236,6 @@
                 document.getElementById('ultimaAtualizacao').innerHTML = '<i class="fas fa-check-circle" style="color:#4CAF50;"></i> Sincronizado: ' + new Date().toLocaleTimeString('pt-BR');
             }
         });
-        
         function getAgendamentosPorData(data) {
             const resultado = [];
             Object.values(agendamentosCache).forEach(agendamento => {
@@ -802,7 +245,6 @@
             });
             return resultado;
         }
-        
         function carregarHorarios(data) {
             const container = document.getElementById('horariosContainer');
             const loadingEl = document.getElementById('loadingHorarios');
@@ -833,7 +275,6 @@
                 loadingEl.classList.remove('active');
             }, 300);
         }
-        
         function atualizarResumo() {
             document.getElementById('resumoNome').innerText = document.getElementById('nome').value || '—';
             document.getElementById('resumoServico').innerText = document.getElementById('servico').selectedOptions[0]?.text || '—';
@@ -841,9 +282,7 @@
             const horario = document.getElementById('horarioSelecionado').value;
             document.getElementById('resumoDataHora').innerText = (data && horario) ? new Date(data + 'T12:00:00').toLocaleDateString('pt-BR') + ' às ' + horario : '—';
         }
-        
         function fecharModal() { document.getElementById('modalConfirmacao').classList.remove('active'); }
-        
         document.addEventListener('DOMContentLoaded', function() {
             const hoje = new Date().toISOString().split('T')[0];
             document.getElementById('data').value = hoje;
@@ -896,6 +335,7 @@
             window.addEventListener('scroll', () => document.getElementById('backToTop').classList.toggle('visible', window.scrollY > 300));
             document.addEventListener('keydown', e => { if (e.key === 'Escape') fecharModal(); });
             setInterval(limparAgendamentosPassados, 300000);
+            console.log('🚀 Sistema ONLINE - Horários passados serão removidos automaticamente');
         });
     </script>
 </body>
